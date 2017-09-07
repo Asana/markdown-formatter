@@ -2,7 +2,9 @@ function formatDocument() {
   const description = document.getElementsByClassName("TaskDescription")[0];
   const stories = document.getElementsByClassName("RichText");
 
-  formatText(description);
+  if (description) {
+    formatText(description);
+  }
 
   for (let i=0; i<stories.length; i++) {
     formatText(stories[i]);
@@ -27,3 +29,16 @@ function formatText(elem) {
     .replace(bold_star_regex, "<b>$1</b>")
     .replace(italic_star_regex, "<i>$1</i>");
 }
+
+var oldLocation;
+
+function locationListener() {
+  if (oldLocation !== window.location.href) {
+    oldLocation = window.location.href;
+    window.setTimeout(formatDocument, 200);
+  }
+
+  window.setTimeout(locationListener, 100);
+}
+
+window.addEventListener("load", locationListener);

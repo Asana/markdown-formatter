@@ -17,8 +17,7 @@
 		}
 	],
 
-	"permission": [
-		"tabs",
+	"permissions": [
 		"https://app.asana.com/"
 	]
 
