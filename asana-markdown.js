@@ -8,7 +8,12 @@ function elementsToFormat() {
     : [];
 
   for (let i=0; i<stories.length; i++) {
-    elements.push(stories[i]);
+    if (!stories[i]
+          .parentElement
+          .classList
+          .contains("truncatedRichText--truncated")) {
+      elements.push(stories[i]);
+    }
   }
 
   return elements;
@@ -23,10 +28,30 @@ function formatElem(elem) {
   const code_regex = /`([^`]+)`/g;
   const code_block_regex = /```([^`]+)```/g;
 
+  const code_style = "width:100%;"
+    + "background-color:rgba(0,0,0,0.05);"
+    + "border:1px solid rgba(0,0,0,0.15);"
+    + "border-radius:3px;"
+    + "padding:2px;";
+
+  let code_tag;
+  if (elem.classList.contains("ql-editor")) {
+    code_tag = {
+      open: '<span style="font-family: monospace;">',
+      close: '</span>'
+    };
+  } else {
+    code_tag = {
+      open: '<code style="' + code_style + '">',
+      close: '</code>'
+    };
+  }
+
+
   const oldHTML = elem.innerHTML;
   const newHTML = elem.innerHTML
-    .replace(code_block_regex, "<code>$1</code>")
-    .replace(code_regex, "<code>$1</code>")
+    .replace(code_block_regex, '<pre style="' + code_style + '">$1</pre>')
+    .replace(code_regex, code_tag.open + "$1" + code_tag.close)
     .replace(title_regex, "<b>$1</b>")
     .replace(bold_regex, "$1<b>$2</b>")
     .replace(italic_regex, "$1<i>$2</i>")
