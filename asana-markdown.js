@@ -23,7 +23,8 @@ function formatElem(elem) {
   const code_regex = /`([^`]+)`/g;
   const code_block_regex = /```([^`]+)```/g;
 
-  elem.innerHTML = elem.innerHTML
+  const oldHTML = elem.innerHTML;
+  const newHTML = elem.innerHTML
     .replace(code_block_regex, "<code>$1</code>")
     .replace(code_regex, "<code>$1</code>")
     .replace(title_regex, "<b>$1</b>")
@@ -31,6 +32,10 @@ function formatElem(elem) {
     .replace(italic_regex, "$1<i>$2</i>")
     .replace(bold_star_regex, "$1<b>$2</b>")
     .replace(italic_star_regex, "$1<i>$2</i>");
+
+  if (oldHTML !== newHTML) {
+    elem.innerHTML = newHTML;
+  }
 }
 
 var oldDOM = 0;
