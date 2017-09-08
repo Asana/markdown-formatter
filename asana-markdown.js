@@ -4,7 +4,7 @@ function elementsToFormat() {
   const stories = document.getElementsByClassName("RichText");
 
   const elements = description && !description.classList.contains("is-focused")
-    ? [description]
+    ? [description.getElementsByClassName("ql-editor")[0]]
     : [];
 
   for (let i=0; i<stories.length; i++) {
