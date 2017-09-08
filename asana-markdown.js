@@ -15,10 +15,10 @@ function elementsToFormat() {
 }
 
 function formatElem(elem) {
-  const title_regex = /#+ ([^<]+)(?=<\/|<br>)/g;
+  const title_regex = /#+ ([^<]+)(?=<)/g;
   const italic_regex = /(\s|>)_([^_<"]+)_/g;
   const italic_star_regex = /(\s|>)\*([^\*<"]+)\*/g;
-  const bold_regex = /(\s|>)__([^_])__/g;
+  const bold_regex = /(\s|>)__([^_]+)__/g;
   const bold_star_regex = /(\s|>)\*\*([^\*]+)\*\*/g;
   const code_regex = /`([^`]+)`/g;
   const code_block_regex = /```([^`]+)```/g;
